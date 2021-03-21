@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 public class TankFrame extends Frame {
-    public final static int WIDTH = 1320, HEIGHT = 700;
+    public final static int WIDTH = 1200, HEIGHT = 700;
     Tank tank = new Tank(200, 400, DirEnum.DOWM, this, Group.GOOD);
     List<Bullet> bulletList = new ArrayList<Bullet>();
     List<Tank> anemyTanks = new ArrayList<>();
@@ -119,7 +119,11 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
                 case KeyEvent.VK_CONTROL:
-                    tank.fire();
+                    if (tank.getGroup().equals(Group.BAD)) {
+                        tank.fire(DefaultFireStrategy.getInstance());
+                    } else {
+                        tank.fire(FireFourStrategy.getInstance());
+                    }
                     break;
                 default:
                     break;

@@ -25,6 +25,7 @@ public class Bullet {
         this.dirEnum = dirEnum;
         this.tankFrame = tankFrame;
         this.group = group;
+        tankFrame.bulletList.add(this);
     }
 
     public void paint(Graphics g) {

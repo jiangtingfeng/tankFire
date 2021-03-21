@@ -9,12 +9,16 @@ import java.util.Properties;
 
 public class PropertyMrg {
 
+    private static class PropertyMrgHolder{
+        private static final PropertyMrg INSTANCE = new PropertyMrg();
+    }
+
     private PropertyMrg(){}
 
     private static PropertyMrg propertyMrg = new PropertyMrg();
 
     public static PropertyMrg getInstance() {
-        return propertyMrg;
+        return PropertyMrgHolder.INSTANCE;
     }
 
     static Properties properties = new Properties();

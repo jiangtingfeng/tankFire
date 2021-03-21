@@ -16,7 +16,7 @@ public class Tank {
     private DirEnum dirEnum = DirEnum.DOWM;
     private static final int SPEED = 5;
     private boolean moving = true;
-    private TankFrame tankFrame;
+    public TankFrame tankFrame;
     public static final int width = 50, height = 50;
     private boolean isLive = true;
     private Group group;
@@ -82,7 +82,7 @@ public class Tank {
         }
         // 敌方随机打子弹
         if (random.nextInt(10) > 8 && this.group.equals(Group.BAD)) {
-            this.fire();
+            this.fire(DefaultFireStrategy.getInstance());
         }
         // 边界检测
         boundCheck();
@@ -91,10 +91,18 @@ public class Tank {
     }
 
     private void boundCheck() {
-        if (this.x < 0) x = 0;
-        if (this.y < 25) y = 25;
-        if (this.x > TankFrame.WIDTH - Tank.width) x = TankFrame.WIDTH - Tank.width;
-        if (this.y > TankFrame.HEIGHT - Tank.height) y = TankFrame.HEIGHT - Tank.height;
+        if (this.x < 0) {
+            x = 0;
+        }
+        if (this.y < 25) {
+            y = 25;
+        }
+        if (this.x > TankFrame.WIDTH - Tank.width) {
+            x = TankFrame.WIDTH - Tank.width;
+        }
+        if (this.y > TankFrame.HEIGHT - Tank.height) {
+            y = TankFrame.HEIGHT - Tank.height;
+        }
     }
 
     private DirEnum getRandomDirEnum() {
@@ -126,8 +134,8 @@ public class Tank {
         return dirEnum;
     }
 
-    public void fire() {
-        tankFrame.bulletList.add(new Bullet(x + width / 2 - 10, y + height / 2 - 10, dirEnum, tankFrame, this.group));
+    public void fire(FireStrategy fireStrategy) {
+        fireStrategy.fire(this);
     }
 
     public void die() {
